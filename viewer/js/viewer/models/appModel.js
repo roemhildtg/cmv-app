@@ -3,18 +3,25 @@ define([
     'dojo/Stateful',
     'dojo/_base/lang',
     'dojo/_base/array',
-    'dojo/topic'
+    'dojo/topic',
+    'dojo/i18n!esri/nls/jsapi'
 ], function (
-    declare, Stateful, lang, array, topic
+    declare, Stateful, lang, array, topic, esriBundle
 ) {
     var model = {
         debug: false,
-        mapConfig: null,
-        mapExtent: null,
-        mapLod: null,
-        map: null,
-        layerInfos: [],
-        widgetInfos: []
+        nlsDefault: lang.clone(esriBundle), //clone of default nls
+        mapConfig: null, //clone on map options
+        mapExtent: null, //current extent of map
+        mapLod: null, //current map LOD
+        mapCursorX: null, //map x of cursor
+        mapCursorY: null, //map y of cursor
+        mapCursorLng: null, //map longitude of cursor
+        mapCursorLat: null, //map latitude of cursor
+        mapCursor: false, //is cursor over map
+        map: null, //the map
+        layerInfos: [], //the layers
+        widgetInfos: [] //the widgets
     };
 
     var SingletonClass = declare([Stateful], {
@@ -47,12 +54,30 @@ define([
             map.on('extent-change', lang.hitch(this, '_mapExtentChangeHandler'));
             this.set('mapExtent', map.extent);
             this.set('mapLod', map.getLevel());
+            //wire up mouse move
+            map.on('mouse-move, mouse-drag', lang.hitch(this, '_mouseMoveHandler'));
+            //wire up mouse over and out
+            map.on('mouse-over', lang.hitch(this, function () {
+                this.set('mapCursor', true);
+            }));
+            map.on('mouse-out', lang.hitch(this, function () {
+                this.set('mapCursor', false);
+            }));
         },
 
         // set model properties on extent change
         _mapExtentChangeHandler: function (evt) {
             this.set('mapExtent', evt.extent);
             this.set('mapLod', evt.lod);
+        },
+
+        // set model properties on mouse move/drag
+        _mouseMoveHandler: function (evt) {
+            var pnt = evt.mapPoint;
+            this.set('mapCursorX', pnt.x);
+            this.set('mapCursorY', pnt.y);
+            this.set('mapCursorLng', pnt.getLongitude() || null);
+            this.set('mapCursorLat', pnt.getLatitude() || null);
         },
 
         // get layerInfo by layer id
