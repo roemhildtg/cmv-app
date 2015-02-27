@@ -116,6 +116,20 @@ define([
   }],
         // set include:true to load. For titlePane type set position the the desired order in the sidebar
         widgets: {
+            advancedDraw: {
+                include: true,
+                id: 'advancedDraw',
+                type: 'titlePane',
+                canFloat: true,
+                path: 'gis/dijit/advancedDraw',
+                title: 'Draw',
+                open: false,
+                position: 0,
+                options: {
+                    map: true
+                }
+            }
+            /*
             growler: {
                 include: true,
                 id: 'growler',
@@ -409,7 +423,7 @@ define([
                 title: 'Help',
                 options: {}
             }
-
+            */
         }
     };
 });
