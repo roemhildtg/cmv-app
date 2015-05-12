@@ -13,6 +13,7 @@
 [submodule "src/dgrid"]
 	path = src/dgrid
 	url = https://github.com/SitePen/dgrid.git
+	update = checkout
 [submodule "src/put-selector"]
 	path = src/put-selector
 	url = https://github.com/kriszyp/put-selector.git
