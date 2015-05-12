@@ -47,7 +47,7 @@ var profile = {
         'esri',
         'proj4js'
     ],
-    // Strips all calls to console functions within the code. You can also set this to "warn" to strip everything
+    // Strips all calls to console functions within the code. You can also set this to warn" to strip everything
     // but console.error, and any other truthy value to strip everything but console.warn and console.error.
     // This defaults to "normal" (strip all but warn and error) if not provided.
     stripConsole: 'all',
@@ -62,11 +62,38 @@ var profile = {
         // This is the main loader module. It is a little special because it is treated like an AMD module even though
         // it is actually just plain JavaScript. There is some extra magic in the build system specifically for this
         // module ID.
-        "dojo/dojo": {
+        'dojo/dojo': {
             include: [
-                "dojo/dojo",
-                "cmv/config/viewer",
-                "cmv/core/Controller"
+                'dojo/dojo',
+                'cmv/config/viewer',
+                'cmv/core/Controller',
+                'cmv/dijit/_FloatingWidgetMixin',
+                'cmv/dijit/Basemaps',
+                'cmv/dijit/Bookmarks',
+                'cmv/dijit/Directions',
+                'cmv/dijit/Draw',
+                'cmv/dijit/Editor',
+                'cmv/dijit/Find',
+                'cmv/dijit/FloatingTitlePane',
+                'cmv/dijit/FloatingWidgetDialog',
+                'cmv/dijit/Geocoder',
+                'cmv/dijit/Growler',
+                'cmv/dijit/Help',
+                'cmv/dijit/Identify',
+                'cmv/dijit/LayerControl',
+                'cmv/dijit/LayerControl/controls/_Control',
+                'cmv/dijit/LayerControl/controls/Dynamic',
+                'cmv/dijit/LayerControl/controls/Feature',
+                'cmv/dijit/LayerControl/controls/_DynamicSublayer',
+                'cmv/dijit/LayerControl/controls/_DynamicFolder',
+                'cmv/dijit/LayerControl/plugins/LayerMenu',
+                'cmv/dijit/LayerControl/plugins/legendUtil',
+                'cmv/dijit/LocateButton',
+                'cmv/dijit/MapInfo',
+                'cmv/dijit/Measurement',
+                'cmv/dijit/Print',
+                'cmv/dijit/StreetView',
+                'cmv/dijit/Vim'
             ],
             customBase: true,
             boot: true
@@ -93,6 +120,6 @@ var profile = {
         'dojo-test-sniff': false
     },
     plugins: {
-        "xstyle/css": "xstyle/build/amd-css"
+        'xstyle/css': 'xstyle/build/amd-css'
     }
 };
