@@ -3,7 +3,7 @@ define([
     'dijit/_WidgetBase',
     'dijit/_TemplatedMixin',
     'dijit/_WidgetsInTemplateMixin',
-    'gis/dijit/_FloatingWidgetMixin',
+    'cmv/dijit/_FloatingWidgetMixin',
     'dojo/dom-construct',
     'dojo/on',
     'dojo/_base/lang',

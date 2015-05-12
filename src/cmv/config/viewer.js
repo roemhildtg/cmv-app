@@ -62,7 +62,7 @@ define([
         // 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
         operationalLayers: [{
             type: 'feature',
-            url: 'http://services1.arcgis.com/g2TonOxuRkIqSOFx/arcgis/rest/services/MeetUpHomeTowns/FeatureServer/0',
+            url: 'http://services1.arcgis.com/ArcGIS/rest/services/MeetUpHomeTowns/FeatureServer/0',
             title: 'STLJS Meetup Home Towns',
             options: {
                 id: 'meetupHometowns',
@@ -134,7 +134,7 @@ define([
                 include: true,
                 id: 'growler',
                 type: 'domNode',
-                path: 'gis/dijit/Growler',
+                path: 'cmv/dijit/Growler',
                 srcNodeRef: 'growlerDijit',
                 options: {}
             },
@@ -142,7 +142,7 @@ define([
                 include: true,
                 id: 'geocoder',
                 type: 'domNode',
-                path: 'gis/dijit/Geocoder',
+                path: 'cmv/dijit/Geocoder',
                 srcNodeRef: 'geocodeDijit',
                 options: {
                     map: true,
@@ -159,25 +159,25 @@ define([
                 include: true,
                 id: 'identify',
                 type: 'titlePane',
-                path: 'gis/dijit/Identify',
+                path: 'cmv/dijit/Identify',
                 title: 'Identify',
                 open: false,
                 position: 3,
-                options: 'config/identify'
+                options: 'cmv/config/identify'
             },
             basemaps: {
                 include: true,
                 id: 'basemaps',
                 type: 'domNode',
-                path: 'gis/dijit/Basemaps',
+                path: 'cmv/dijit/Basemaps',
                 srcNodeRef: 'basemapsDijit',
-                options: 'config/basemaps'
+                options: 'cmv/config/basemaps'
             },
             mapInfo: {
                 include: false,
                 id: 'mapInfo',
                 type: 'domNode',
-                path: 'gis/dijit/MapInfo',
+                path: 'cmv/dijit/MapInfo',
                 srcNodeRef: 'mapInfoDijit',
                 options: {
                     map: true,
@@ -206,7 +206,7 @@ define([
                 include: true,
                 id: 'locateButton',
                 type: 'domNode',
-                path: 'gis/dijit/LocateButton',
+                path: 'cmv/dijit/LocateButton',
                 srcNodeRef: 'locateButton',
                 options: {
                     map: true,
@@ -271,7 +271,7 @@ define([
                 include: true,
                 id: 'layerControl',
                 type: 'titlePane',
-                path: 'gis/dijit/LayerControl',
+                path: 'cmv/dijit/LayerControl',
                 title: 'Layers',
                 open: false,
                 position: 0,
@@ -287,29 +287,29 @@ define([
                 include: true,
                 id: 'bookmarks',
                 type: 'titlePane',
-                path: 'gis/dijit/Bookmarks',
+                path: 'cmv/dijit/Bookmarks',
                 title: 'Bookmarks',
                 open: false,
                 position: 2,
-                options: 'config/bookmarks'
+                options: 'cmv/config/bookmarks'
             },
             find: {
                 include: true,
                 id: 'find',
                 type: 'titlePane',
                 canFloat: true,
-                path: 'gis/dijit/Find',
+                path: 'cmv/dijit/Find',
                 title: 'Find',
                 open: false,
                 position: 3,
-                options: 'config/find'
+                options: 'cmv/config/find'
             },
             draw: {
                 include: true,
                 id: 'draw',
                 type: 'titlePane',
                 canFloat: true,
-                path: 'gis/dijit/Draw',
+                path: 'cmv/dijit/Draw',
                 title: 'Draw',
                 open: false,
                 position: 4,
@@ -323,7 +323,7 @@ define([
                 id: 'measurement',
                 type: 'titlePane',
                 canFloat: true,
-                path: 'gis/dijit/Measurement',
+                path: 'cmv/dijit/Measurement',
                 title: 'Measurement',
                 open: false,
                 position: 5,
@@ -339,13 +339,13 @@ define([
                 id: 'print',
                 type: 'titlePane',
                 canFloat: true,
-                path: 'gis/dijit/Print',
+                path: 'cmv/dijit/Print',
                 title: 'Print',
                 open: false,
                 position: 6,
                 options: {
                     map: true,
-                    printTaskURL: 'https://utility.arcgisonline.com/arcgis/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
+                    printTaskURL: 'https://utility.arcgisonline.com/arccmv/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
                     copyrightText: 'Copyright 2014',
                     authorText: 'Me',
                     defaultTitle: 'Viewer Map',
@@ -357,7 +357,7 @@ define([
                 include: true,
                 id: 'directions',
                 type: 'titlePane',
-                path: 'gis/dijit/Directions',
+                path: 'cmv/dijit/Directions',
                 title: 'Directions',
                 open: false,
                 position: 7,
@@ -378,7 +378,7 @@ define([
                 include: true,
                 id: 'editor',
                 type: 'titlePane',
-                path: 'gis/dijit/Editor',
+                path: 'cmv/dijit/Editor',
                 title: 'Editor',
                 open: false,
                 position: 8,
@@ -407,7 +407,7 @@ define([
                 type: 'titlePane',
                 canFloat: true,
                 position: 9,
-                path: 'gis/dijit/StreetView',
+                path: 'cmv/dijit/StreetView',
                 title: 'Google Street View',
                 options: {
                     map: true,
@@ -419,7 +419,7 @@ define([
                 include: true,
                 id: 'help',
                 type: 'floating',
-                path: 'gis/dijit/Help',
+                path: 'cmv/dijit/Help',
                 title: 'Help',
                 options: {}
             }

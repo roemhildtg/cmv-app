@@ -37,16 +37,12 @@
         <script type="text/javascript">
             var dojoConfig = {
                 async: true,
-                packages: [{
-                    name: 'viewer',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/viewer'
-                },{
-                    name: 'config',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/config'
-                },{
-                    name: 'gis',
-                    location: location.pathname.replace(/[^\/]+$/, '') + 'js/gis'
-                }]
+                packages: [
+                    {
+                        name: 'cmv',
+                        location: location.pathname.replace(/[^\/]+$/, '') + 'cmv'
+                    }
+                ]
             };
         </script>
         <!--[if lt IE 9]>
@@ -55,14 +51,14 @@
         <script type="text/javascript" src="//js.arcgis.com/3.13compact/"></script>
         <script type="text/javascript">
             // get the config file from the url if present
-            var file = 'config/viewer', s = window.location.search, q = s.match(/config=([^&]*)/i);
+            var file = 'cmv/config/viewer', s = window.location.search, q = s.match(/config=([^&]*)/i);
             if (q && q.length > 0) {
                 file = q[1];
                 if(file.indexOf('/') < 0) {
-                    file = 'config/' + file;
+                    file = 'cmv/config/' + file;
                 }
             }
-            require(['viewer/Controller', file], function(Controller, config){
+            require(['cmv/core/Controller', file], function(Controller, config){
                 Controller.startup(config);
             });
         </script>
