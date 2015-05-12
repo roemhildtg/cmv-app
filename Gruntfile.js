@@ -141,6 +141,17 @@ module.exports = function(grunt) {
           src: ['**', '!**/dijit.css']
         }]
       }
+    },
+    esri_slurp: {
+      options: {
+        version: '3.13'
+      },
+      dev: {
+        options: {
+          beautify: true
+        },
+        dest: 'src/esri'
+      }
     }
   });
 
@@ -156,6 +167,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-open');
   grunt.loadNpmTasks('grunt-contrib-compress');
+  grunt.loadNpmTasks('grunt-esri-slurp');
 
   // define the tasks
   grunt.registerTask('default', 'Watches the project for changes, automatically builds them and runs a web server and opens default browser to preview.', ['jshint', 'connect:dev', 'open:dev_browser', 'watch:dev']);
@@ -164,4 +176,5 @@ module.exports = function(grunt) {
   grunt.registerTask('scripts', 'Compiles the JavaScript files.', ['jshint', 'uglify']);
   grunt.registerTask('stylesheets', 'Auto prefixes css and compiles the stylesheets.', ['autoprefixer', 'cssmin']);
   grunt.registerTask('hint', 'Run simple jshint.', ['jshint']);
+  grunt.registerTask('slurp', 'Download the esri amd style api.', ['esri_slurp:dev']);
 };
