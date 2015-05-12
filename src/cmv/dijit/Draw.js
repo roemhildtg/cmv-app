@@ -20,8 +20,7 @@ define([
    'dojo/i18n!./Draw/nls/resource',
 
    'dijit/form/Button',
-   'xstyle/css!./Draw/css/Draw.css',
-   'xstyle/css!./Draw/css/adw-icons.css'
+   'xstyle/css!./Draw/css/Draw.css'
 ], function (declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, Color, Draw, GraphicsLayer, Graphic, SimpleRenderer, drawTemplate, UniqueValueRenderer, SimpleMarkerSymbol, SimpleLineSymbol, SimpleFillSymbol, FeatureLayer, topic, aspect, i18n) {
 
     // main draw dijit

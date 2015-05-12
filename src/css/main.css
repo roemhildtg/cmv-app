@@ -4,6 +4,7 @@
 @import url('../esri/css/esri.css');
 @import url('theme/dbootstrap/dbootstrap.css');
 @import url('font-awesome-4.3.0/css/font-awesome.min.css');
+@import url('font-adw/adw-icons.css');
 
 body, html {
     width: 100%;
