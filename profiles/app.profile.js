@@ -37,9 +37,7 @@ var profile = {
     // A list of packages that will be built. The same packages defined in the loader should be defined here in the
     // build profile.
     packages: [
-      'viewer',
-      'config',
-      'gis',
+      'cmv',
       'dgrid',
       'dijit',
       'dojo',
@@ -67,8 +65,7 @@ var profile = {
         "dojo/dojo": {
             include: [
                 "dojo/dojo",
-		        "config/viewer",
-		        "viewer/Controller"
+		        "cmv"
             ],
             customBase: true,
             boot: true
