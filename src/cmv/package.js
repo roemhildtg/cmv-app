@@ -36,7 +36,7 @@ var profile = {
 		// the application.
 		miniExclude: function (filename, mid) {
 			return mid in {
-				'gis/package': 1
+				'cmv/package': 1
 			};
 		}
 	}
