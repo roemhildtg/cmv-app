@@ -37,15 +37,15 @@ var profile = {
     // A list of packages that will be built. The same packages defined in the loader should be defined here in the
     // build profile.
     packages: [
-      'cmv',
-      'dgrid',
-      'dijit',
-      'dojo',
-      'dojox',
-      {name: 'put-selector', main: 'put'},
-      'xstyle',
-      'esri',
-      'proj4js'
+        'cmv',
+        'dgrid',
+        'dijit',
+        'dojo',
+        'dojox',
+        {name: 'put-selector', main: 'put'},
+        'xstyle',
+        'esri',
+        'proj4js'
     ],
     // Strips all calls to console functions within the code. You can also set this to "warn" to strip everything
     // but console.error, and any other truthy value to strip everything but console.warn and console.error.
@@ -65,7 +65,8 @@ var profile = {
         "dojo/dojo": {
             include: [
                 "dojo/dojo",
-		        "cmv"
+                "cmv/config/viewer",
+                "cmv/core/Controller"
             ],
             customBase: true,
             boot: true
@@ -92,6 +93,6 @@ var profile = {
         'dojo-test-sniff': false
     },
     plugins: {
-      "xstyle/css": "xstyle/build/amd-css"
+        "xstyle/css": "xstyle/build/amd-css"
     }
 };
