@@ -1,32 +1,34 @@
 module.exports = function(grunt) {
 
-  // middleware for grunt.connect
-  var middleware = function(connect, options, middlewares) {
-    // inject a custom middleware into the array of default middlewares for proxy page
-    var proxypage = require('proxypage');
-    var proxyRe = /\/proxy\/proxy.ashx/i;
+    // middleware for grunt.connect
+    var middleware = function(connect, options, middlewares) {
+        // inject a custom middleware into the array of default middlewares for proxy page
+        var proxypage = require('proxypage');
+        var proxyRe = /\/proxy\/proxy.ashx/i;
 
-    var enableCORS = function(req, res, next) {
-      res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-      res.setHeader('Access-Control-Allow-Credentials', true);
-      res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-      res.setHeader('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
-      return next();
+        var enableCORS = function(req, res, next) {
+            res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+            res.setHeader('Access-Control-Allow-Credentials', true);
+            res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+            res.setHeader('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
+            return next();
+        };
+
+        var proxyMiddleware = function(req, res, next) {
+            if (!proxyRe.test(req.url)) {
+                return next();
+            }
+            proxypage.proxy(req, res);
+        };
+
+        middlewares.unshift(proxyMiddleware);
+        middlewares.unshift(enableCORS);
+        middlewares.unshift(connect.json()); //body parser, see https://github.com/senchalabs/connect/wiki/Connect-3.0
+        middlewares.unshift(connect.urlencoded()); //body parser
+        return middlewares;
     };
 
-    var proxyMiddleware = function(req, res, next) {
-      if (!proxyRe.test(req.url)) {
-        return next();
-      }
-      proxypage.proxy(req, res);
-    };
-
-    middlewares.unshift(proxyMiddleware);
-    middlewares.unshift(enableCORS);
-    middlewares.unshift(connect.json()); //body parser, see https://github.com/senchalabs/connect/wiki/Connect-3.0
-    middlewares.unshift(connect.urlencoded()); //body parser
-    return middlewares;
-  };
+    var dojoReleaseName = grunt.option('releaseName') || 'viewer';
 
   // grunt task config
   grunt.initConfig({
@@ -47,7 +49,7 @@ module.exports = function(grunt) {
           dojo: {
               cwd: 'src',
               src: ['index.html'],
-              dest: 'dist/dojo/viewer2',
+              dest: 'dist/dojo/' + dojoReleaseName,
               expand: true
           }
       },
@@ -56,7 +58,7 @@ module.exports = function(grunt) {
               src: ['dist/grunt/viewer']
           },
           dojo: {
-              src: ['dist/dojo/viewer2']
+              src: ['dist/dojo/' + dojoReleaseName]
           }
       },
       autoprefixer: {
@@ -130,6 +132,14 @@ module.exports = function(grunt) {
                   hostname: '*',
                   middleware: middleware
               }
+          },
+          dojo: {
+              options: {
+                  port: 3001,
+                  base: 'dist/dojo/' + dojoReleaseName,
+                  hostname: '*',
+                  middleware: middleware
+              }
           }
       },
       open: {
@@ -138,6 +148,9 @@ module.exports = function(grunt) {
           },
           build_browser: {
               path: 'http://localhost:3001/index-dev.html'
+          },
+          dojo_browser: {
+              path: 'http://localhost:3002/index.html'
           }
       },
       compress: {
@@ -149,6 +162,16 @@ module.exports = function(grunt) {
                   expand: true,
                   cwd: 'dist/grunt/viewer',
                   src: ['**', '!**/dijit.css']
+              }]
+          },
+          dojo: {
+              options: {
+                  archive: 'dist/dojo/' + dojoReleaseName + '/' + dojoReleaseName + '.zip'
+              },
+              files: [{
+                  expand: true,
+                  cwd: 'dist/dojo/' + dojoReleaseName,
+                  src: ['**', '!**/build-report.txt']
               }]
           }
       },
@@ -170,7 +193,7 @@ module.exports = function(grunt) {
               }
           },
           options: {
-              releaseDir: '../dist/dojo/viewer2',
+              releaseDir: '../dist/dojo/' + dojoReleaseName,
               dojo: 'src/dojo/dojo.js',
               load: 'build'
           }
@@ -181,7 +204,7 @@ module.exports = function(grunt) {
                   cwd: 'src',
                   expand: true,
                   src: ['index.html'],
-                  dest: 'dist/dojo/viewer2'
+                  dest: 'dist/dojo/' + dojoReleaseName
               }],
               options: {
                   collapseWhitespace: true,
@@ -217,6 +240,7 @@ module.exports = function(grunt) {
     grunt.registerTask('stylesheets', 'Auto prefixes css and compiles the stylesheets.', ['autoprefixer', 'cssmin']);
     grunt.registerTask('hint', 'Run simple jshint.', ['jshint']);
     grunt.registerTask('slurp', 'Download the esri amd style api.', ['esri_slurp:dev']);
-    grunt.registerTask('dojo-build', 'Building using dojo\'s build system', ['clean:dojo','htmlmin:dojo','dojo:prod']);
+    grunt.registerTask('dojo-build', 'Building using dojo\'s build system. The release name can be specified on command line ( --releaseName=viewer ).  The default name is \'viewer\'.', ['clean:dojo','htmlmin:dojo','dojo:prod', 'compress:dojo']);
+    grunt.registerTask('dojo-build-view', 'Building using dojo\'s build system and starts a web server and opens browser to preview app. Release name can be specified on command line ( --releaseName=viewer ).  The default name is \'viewer\'.', ['clean:dojo','htmlmin:dojo','dojo:prod', 'connect:dojo', 'open:dojo_browser']);
 
 };
