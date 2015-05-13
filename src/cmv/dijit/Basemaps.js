@@ -12,8 +12,7 @@ define([
     'esri/dijit/BasemapGallery',
     'dojo/i18n!./Basemaps/nls/resource',
 
-    'dijit/form/DropDownButton',
-    'xstyle/css!./Basemaps/css/Basemaps.css'
+    'dijit/form/DropDownButton'
 ], function (declare, _WidgetBase, _TemplatedMixin, _WidgetsInTemplateMixin, lang, DropDownMenu, MenuItem, array, functional, template, BasemapGallery, i18n) {
 
     // main basemap widget
@@ -57,7 +56,7 @@ define([
                     var menuItem = new MenuItem({
                         id: basemap,
                         label: this.basemaps[basemap].title,
-                        iconClass: (basemap == this.mapStartBasemap) ? 'selectedIcon' : 'emptyIcon',
+                        iconClass: (basemap == this.mapStartBasemap) ? 'fa-check-square-o' : 'fa-square-o',
                         onClick: lang.hitch(this, function () {
                             if (basemap !== this.currentBasemap) {
                                 this.currentBasemap = basemap;
@@ -69,9 +68,9 @@ define([
                                 var ch = this.menu.getChildren();
                                 array.forEach(ch, function (c) {
                                     if (c.id == basemap) {
-                                        c.set('iconClass', 'selectedIcon');
+                                        c.set('iconClass', 'fa-check-square-o');
                                     } else {
-                                        c.set('iconClass', 'emptyIcon');
+                                        c.set('iconClass', 'fa-square-o');
                                     }
                                 });
                             }

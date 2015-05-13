@@ -1,10 +1,10 @@
-.floatingWidgetDock:before {
+.floatingWidgetDock {
     float: right;
     content: "\f112";
     font-family: FontAwesome;
 }
-.floatingWidgetPopout:before {
+.floatingWidgetPopout {
     float: right;
-    content: "\f064";
+    /*content: "\f064";*/
     font-family: FontAwesome;
 }

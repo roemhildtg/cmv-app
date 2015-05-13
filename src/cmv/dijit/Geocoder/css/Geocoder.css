@@ -16,9 +16,7 @@
 	-o-border-radius: 5px;
 	border-radius: 5px;
 }
-.gis_GeocoderDijit .zoomSearchButton:after {
-	content: '\f002';
-	font-family: FontAwesome;
+.gis_GeocoderDijit .simpleGeocoder .zoomSearchButton {
 	font-size: 16px;
 	color: #444444;
 }
@@ -78,7 +76,7 @@
 	width: 0;
 	height: 0;
 }
-.gis_GeocoderDijit .esriGeocoder {
+.gis_GeocoderDijit .simpleGeocoder .esriGeocoder {
 	display: block;
 	width: 100%;
 	margin: 0px;
@@ -94,7 +92,7 @@
 	-webkit-border-radius: 0 5px 0 0;
 	border-radius: 0 5px 0 0;
 }
-.gis_GeocoderDijit .esriGeocoder input {
+.gis_GeocoderDijit .simpleGeocoder .esriGeocoder input {
 	outline: 0;
 	display: block;
 	border: 0;

@@ -41,13 +41,13 @@ define([
         createDomNodes: function () {
             this.moveHandleNode = domConstruct.create('span', {
                 title: 'Move widget',
-                'class': 'floatingWidgetPopout'
+                'class': 'floatingWidgetPopout fa fa-fw fa-share'
             }, this.titleNode, 'after');
 
             this.dockHandleNode = domConstruct.create('span', {
                 title: 'Dock widget',
                 style: 'display:none',
-                'class': 'floatingWidgetDock'
+                'class': 'floatingWidgetDock fa fa-fw fa-reply'
             }, this.titleNode, 'after');
             this.own(on(this.dockHandleNode, 'click', lang.hitch(this, function (evt) {
                 this._dockWidget();
