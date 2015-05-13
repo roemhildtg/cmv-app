@@ -12,7 +12,7 @@ SRCDIR="$BASEDIR/src"
 TOOLSDIR="$SRCDIR/util/buildscripts"
 
 # Destination directory for built code
-DISTDIR="$BASEDIR/dist/viewer"
+DISTDIR="$BASEDIR/dist/dojo/viewer"
 
 # Main application package build configuration
 PROFILE="$BASEDIR/profiles/viewer.profile.js"
