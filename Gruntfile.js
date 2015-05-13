@@ -43,11 +43,20 @@ module.exports = function(grunt) {
               src: ['cmv/**','index-dev.html'],
               dest: 'dist/grunt/viewer',
               expand: true
+          },
+          dojo: {
+              cwd: 'src',
+              src: ['index.html'],
+              dest: 'dist/dojo/viewer2',
+              expand: true
           }
       },
       clean: {
           build: {
               src: ['dist/grunt/viewer']
+          },
+          dojo: {
+              src: ['dist/dojo/viewer2']
           }
       },
       autoprefixer: {
@@ -153,7 +162,35 @@ module.exports = function(grunt) {
             },
             dest: 'src/esri'
           }
-    }
+      },
+      dojo: {
+          prod: {
+              options: {
+                  profiles: ['profiles/viewer.profile.js']
+              }
+          },
+          options: {
+              releaseDir: '../dist/dojo/viewer2',
+              dojo: 'src/dojo/dojo.js',
+              load: 'build'
+          }
+      },
+      htmlmin: {
+          dojo: {
+              files: [{
+                  cwd: 'src',
+                  expand: true,
+                  src: ['index.html'],
+                  dest: 'dist/dojo/viewer2'
+              }],
+              options: {
+                  collapseWhitespace: true,
+                  minifyCSS: true,
+                  minifyJS: true,
+                  removeComments: true
+              }
+          }
+      }
   });
 
   // load the tasks
@@ -161,6 +198,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-autoprefixer');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -169,6 +207,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-contrib-compress');
     grunt.loadNpmTasks('grunt-esri-slurp');
+    grunt.loadNpmTasks('grunt-dojo');
 
     // define the tasks
     grunt.registerTask('default', 'Watches the project for changes, automatically builds them and runs a web server and opens default browser to preview.', ['jshint', 'connect:dev', 'open:dev_browser', 'watch:dev']);
@@ -178,5 +217,6 @@ module.exports = function(grunt) {
     grunt.registerTask('stylesheets', 'Auto prefixes css and compiles the stylesheets.', ['autoprefixer', 'cssmin']);
     grunt.registerTask('hint', 'Run simple jshint.', ['jshint']);
     grunt.registerTask('slurp', 'Download the esri amd style api.', ['esri_slurp:dev']);
+    grunt.registerTask('dojo-build', 'Building using dojo\'s build system', ['clean:dojo','htmlmin:dojo','dojo:prod']);
 
 };
