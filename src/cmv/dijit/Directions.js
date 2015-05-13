@@ -24,8 +24,7 @@ define([
                 map: this.map
             }, this.options), this.directionsNode);
             this.directions.startup();
-            this.directions._activateButton.style.display = 'none'; //temp fix for 3.12 map click button.
-
+            
             if (this.mapRightClickMenu) {
                 this.addRightClickMenu();
             }
