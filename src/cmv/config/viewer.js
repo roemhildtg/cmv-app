@@ -1,19 +1,19 @@
-define([
-   'esri/units',
-   'esri/geometry/Extent',
-   'esri/config',
-   'esri/tasks/GeometryService',
-   'esri/layers/ImageParameters'
-], function (units, Extent, esriConfig, GeometryService, ImageParameters) {
+define ( [
+    'esri/units',
+    'esri/geometry/Extent',
+    'esri/config',
+    'esri/tasks/GeometryService',
+    'esri/layers/ImageParameters'
+], function ( units, Extent, esriConfig, GeometryService, ImageParameters ) {
 
     // url to your proxy page, must be on same machine hosting you app. See proxy folder for readme.
     esriConfig.defaults.io.proxyUrl = 'proxy/proxy.ashx';
     esriConfig.defaults.io.alwaysUseProxy = false;
     // url to your geometry server.
-    esriConfig.defaults.geometryService = new GeometryService('http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer');
+    esriConfig.defaults.geometryService = new GeometryService ( 'http://tasks.arcgisonline.com/ArcGIS/rest/services/Geometry/GeometryServer' );
 
     //image parameters for dynamic services, set to png32 for higher quality exports.
-    var imageParameters = new ImageParameters();
+    var imageParameters = new ImageParameters ();
     imageParameters.format = 'png32';
 
     return {
@@ -23,10 +23,10 @@ define([
         //default mapClick mode, mapClickMode lets widgets know what mode the map is in to avoid multipult map click actions from taking place (ie identify while drawing).
         defaultMapClickMode: 'identify',
         // map options, passed to map constructor. see: https://developers.arcgis.com/javascript/jsapi/map-amd.html#map1
-        mapOptions: {
-            basemap: 'streets',
-            center: [-96.59179687497497, 39.09596293629694],
-            zoom: 5,
+        mapOptions         : {
+            basemap    : 'streets',
+            center     : [-96.59179687497497, 39.09596293629694],
+            zoom       : 5,
             sliderStyle: 'small'
         },
         // panes: {
@@ -61,26 +61,20 @@ define([
         // The 'options' object is passed as the layers options for constructor. Title will be used in the legend only. id's must be unique and have no spaces.
         // 3 'mode' options: MODE_SNAPSHOT = 0, MODE_ONDEMAND = 1, MODE_SELECTION = 2
         operationalLayers: [{
-            type: 'feature',
-            url: 'http://services1.arcgis.com/ArcGIS/rest/services/MeetUpHomeTowns/FeatureServer/0',
-            title: 'STLJS Meetup Home Towns',
-            options: {
-                id: 'meetupHometowns',
-                opacity: 1.0,
-                visible: true,
+            type            : 'feature',
+            url             : 'http://services1.arcgis.com/g2TonOxuRkIqSOFx/arcgis/rest/services/MeetUpHomeTowns/FeatureServer/0',
+            title           : 'STLJS Meetup Home Towns',
+            options         : {
+                id       : 'meetupHometowns',
+                opacity  : 1.0,
+                visible  : true,
                 outFields: ['*'],
-                mode: 0
+                mode     : 0
             },
             editorLayerInfos: {
                 disableGeometryUpdate: false
-            },
-            legendLayerInfos: {
-                exclude: false,
-                layerInfo: {
-                    title: 'My layer'
-                }
             }
-  }, {
+        }, /*{
             type: 'feature',
             url: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/SanFrancisco/311Incidents/FeatureServer/0',
             title: 'San Francisco 311 Incidents',
@@ -91,339 +85,334 @@ define([
                 outFields: ['req_type', 'req_date', 'req_time', 'address', 'district'],
                 mode: 0
             }
-  }, {
-            type: 'dynamic',
-            url: 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyOperationalLayers/MapServer',
-            title: 'Louisville Public Safety',
-            options: {
-                id: 'louisvillePubSafety',
-                opacity: 1.0,
-                visible: true,
+        },*/ {
+            type              : 'dynamic',
+            url               : 'http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/PublicSafety/PublicSafetyOperationalLayers/MapServer',
+            title             : 'Louisville Public Safety',
+            options           : {
+                id             : 'louisvillePubSafety',
+                opacity        : 1.0,
+                visible        : true,
                 imageParameters: imageParameters
             },
             identifyLayerInfos: {
                 layerIds: [2, 4, 5, 8, 12, 21]
-            },
-            legendLayerInfos: {
-                layerInfo: {
-                    hideLayers: [21]
-                }
             }
-  }, {
-            type: 'dynamic',
-            url: 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/MapServer',
-            title: 'Damage Assessment',
-            options: {
-                id: 'DamageAssessment',
-                opacity: 1.0,
-                visible: true,
+        }, {
+            type                  : 'dynamic',
+            url                   : 'http://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/MapServer',
+            title                 : 'Damage Assessment',
+            options               : {
+                id             : 'DamageAssessment',
+                opacity        : 1.0,
+                visible        : true,
                 imageParameters: imageParameters
             },
-            legendLayerInfos: {
-                exclude: true
-            },
             layerControlLayerInfos: {
-                swipe: true,
+                swipe      : true,
                 metadataUrl: true,
-                expanded: true
+                expanded   : true
             }
-  }],
+        }
+        ],
         // set include:true to load. For titlePane type set position the the desired order in the sidebar
-        widgets: {
-            growler: {
-                include: true,
-                id: 'growler',
-                type: 'domNode',
-                path: 'cmv/dijit/Growler',
+        widgets          : {
+            growler     : {
+                include   : true,
+                id        : 'growler',
+                type      : 'domNode',
+                path      : 'cmv/dijit/Growler',
                 srcNodeRef: 'growlerDijit',
-                options: {}
+                options   : {}
             },
-            geocoder: {
-                include: true,
-                id: 'geocoder',
-                type: 'domNode',
-                path: 'cmv/dijit/Geocoder',
+            geocoder    : {
+                include   : true,
+                id        : 'geocoder',
+                type      : 'domNode',
+                path      : 'cmv/dijit/Geocoder',
                 srcNodeRef: 'geocodeDijit',
-                options: {
-                    map: true,
+                options   : {
+                    map              : true,
                     mapRightClickMenu: true,
-                    geocoderOptions: {
-                        autoComplete: true,
+                    geocoderOptions  : {
+                        autoComplete  : true,
                         arcgisGeocoder: {
                             placeholder: 'Enter an address or place'
                         }
                     }
                 }
             },
-            identify: {
-                include: true,
-                id: 'identify',
-                type: 'titlePane',
-                path: 'cmv/dijit/Identify',
-                title: 'Identify',
-                open: false,
+            identify    : {
+                include : true,
+                id      : 'identify',
+                type    : 'titlePane',
+                path    : 'cmv/dijit/Identify',
+                title   : 'Identify',
+                open    : false,
                 position: 3,
-                options: 'cmv/config/identify'
+                options : 'cmv/config/identify'
             },
-            basemaps: {
-                include: true,
-                id: 'basemaps',
-                type: 'domNode',
-                path: 'cmv/dijit/Basemaps',
+            basemaps    : {
+                include   : true,
+                id        : 'basemaps',
+                type      : 'domNode',
+                path      : 'cmv/dijit/Basemaps',
                 srcNodeRef: 'basemapsDijit',
-                options: 'cmv/config/basemaps'
+                options   : 'cmv/config/basemaps'
             },
-            mapInfo: {
-                include: false,
-                id: 'mapInfo',
-                type: 'domNode',
-                path: 'cmv/dijit/MapInfo',
+            mapInfo     : {
+                include   : true,
+                id        : 'mapInfo',
+                type      : 'domNode',
+                path      : 'cmv/dijit/MapInfo',
                 srcNodeRef: 'mapInfoDijit',
-                options: {
-                    map: true,
-                    mode: 'dms',
+                options   : {
+                    map       : true,
+                    mode      : 'dms',
                     firstCoord: 'y',
-                    unitScale: 3,
-                    showScale: true,
-                    xLabel: '',
-                    yLabel: '',
-                    minWidth: 286
+                    unitScale : 3,
+                    showScale : true,
+                    xLabel    : '',
+                    yLabel    : '',
+                    minWidth  : 286
                 }
             },
-            scalebar: {
+            scalebar    : {
                 include: true,
-                id: 'scalebar',
-                type: 'map',
-                path: 'esri/dijit/Scalebar',
+                id     : 'scalebar',
+                type   : 'map',
+                path   : 'esri/dijit/Scalebar',
                 options: {
-                    map: true,
-                    attachTo: 'bottom-left',
+                    map          : true,
+                    attachTo     : 'bottom-left',
                     scalebarStyle: 'line',
-                    scalebarUnit: 'dual'
+                    scalebarUnit : 'dual'
                 }
             },
             locateButton: {
-                include: true,
-                id: 'locateButton',
-                type: 'domNode',
-                path: 'cmv/dijit/LocateButton',
+                include   : true,
+                id        : 'locateButton',
+                type      : 'domNode',
+                path      : 'cmv/dijit/LocateButton',
                 srcNodeRef: 'locateButton',
-                options: {
-                    map: true,
+                options   : {
+                    map               : true,
                     publishGPSPosition: true,
-                    highlightLocation: true,
-                    useTracking: true,
+                    highlightLocation : true,
+                    useTracking       : true,
                     geolocationOptions: {
-                        maximumAge: 0,
-                        timeout: 15000,
+                        maximumAge        : 0,
+                        timeout           : 15000,
                         enableHighAccuracy: true
                     }
                 }
             },
-            overviewMap: {
+            overviewMap : {
                 include: true,
-                id: 'overviewMap',
-                type: 'map',
-                path: 'esri/dijit/OverviewMap',
+                id     : 'overviewMap',
+                type   : 'map',
+                path   : 'esri/dijit/OverviewMap',
                 options: {
-                    map: true,
+                    map     : true,
                     attachTo: 'bottom-right',
-                    color: '#0000CC',
-                    height: 100,
-                    width: 125,
-                    opacity: 0.30,
-                    visible: false
+                    color   : '#0000CC',
+                    height  : 100,
+                    width   : 125,
+                    opacity : 0.30,
+                    visible : false
                 }
             },
-            homeButton: {
-                include: true,
-                id: 'homeButton',
-                type: 'domNode',
-                path: 'esri/dijit/HomeButton',
+            homeButton  : {
+                include   : true,
+                id        : 'homeButton',
+                type      : 'domNode',
+                path      : 'esri/dijit/HomeButton',
                 srcNodeRef: 'homeButton',
-                options: {
-                    map: true,
-                    extent: new Extent({
-                        xmin: -180,
-                        ymin: -85,
-                        xmax: 180,
-                        ymax: 85,
+                options   : {
+                    map   : true,
+                    extent: new Extent ( {
+                        xmin            : -180,
+                        ymin            : -85,
+                        xmax            : 180,
+                        ymax            : 85,
                         spatialReference: {
                             wkid: 4326
                         }
-                    })
+                    }
+                    )
                 }
             },
-            legend: {
-                include: true,
-                id: 'legend',
-                type: 'titlePane',
-                path: 'esri/dijit/Legend',
-                title: 'Legend',
-                open: false,
+            legend      : {
+                include : true,
+                id      : 'legend',
+                type    : 'titlePane',
+                path    : 'esri/dijit/Legend',
+                title   : 'Legend',
+                open    : false,
                 position: 0,
-                options: {
-                    map: true,
+                options : {
+                    map             : true,
                     legendLayerInfos: true
                 }
             },
             layerControl: {
-                include: true,
-                id: 'layerControl',
-                type: 'titlePane',
-                path: 'cmv/dijit/LayerControl',
-                title: 'Layers',
-                open: false,
+                include : true,
+                id      : 'layerControl',
+                type    : 'titlePane',
+                path    : 'cmv/dijit/LayerControl',
+                title   : 'Layers',
+                open    : false,
                 position: 0,
-                options: {
-                    map: true,
+                options : {
+                    map                   : true,
                     layerControlLayerInfos: true,
-                    separated: true,
-                    vectorReorder: true,
-                    overlayReorder: true
+                    separated             : true,
+                    vectorReorder         : true,
+                    overlayReorder        : true
                 }
             },
-            bookmarks: {
-                include: true,
-                id: 'bookmarks',
-                type: 'titlePane',
-                path: 'cmv/dijit/Bookmarks',
-                title: 'Bookmarks',
-                open: false,
+            bookmarks   : {
+                include : true,
+                id      : 'bookmarks',
+                type    : 'titlePane',
+                path    : 'cmv/dijit/Bookmarks',
+                title   : 'Bookmarks',
+                open    : false,
                 position: 2,
-                options: 'cmv/config/bookmarks'
+                options : 'cmv/config/bookmarks'
             },
-            find: {
-                include: true,
-                id: 'find',
-                type: 'titlePane',
+            find        : {
+                include : true,
+                id      : 'find',
+                type    : 'titlePane',
                 canFloat: true,
-                path: 'cmv/dijit/Find',
-                title: 'Find',
-                open: false,
+                path    : 'cmv/dijit/Find',
+                title   : 'Find',
+                open    : false,
                 position: 3,
-                options: 'cmv/config/find'
+                options : 'cmv/config/find'
             },
-            draw: {
-                include: true,
-                id: 'draw',
-                type: 'titlePane',
+            draw        : {
+                include : true,
+                id      : 'draw',
+                type    : 'titlePane',
                 canFloat: true,
-                path: 'cmv/dijit/Draw',
-                title: 'Draw',
-                open: false,
+                path    : 'cmv/dijit/Draw',
+                title   : 'Draw',
+                open    : false,
                 position: 4,
-                options: {
-                    map: true,
+                options : {
+                    map         : true,
                     mapClickMode: true
                 }
             },
-            measure: {
-                include: true,
-                id: 'measurement',
-                type: 'titlePane',
+            measure     : {
+                include : true,
+                id      : 'measurement',
+                type    : 'titlePane',
                 canFloat: true,
-                path: 'cmv/dijit/Measurement',
-                title: 'Measurement',
-                open: false,
+                path    : 'cmv/dijit/Measurement',
+                title   : 'Measurement',
+                open    : false,
                 position: 5,
-                options: {
-                    map: true,
-                    mapClickMode: true,
-                    defaultAreaUnit: units.SQUARE_MILES,
+                options : {
+                    map              : true,
+                    mapClickMode     : true,
+                    defaultAreaUnit  : units.SQUARE_MILES,
                     defaultLengthUnit: units.MILES
                 }
             },
-            print: {
-                include: true,
-                id: 'print',
-                type: 'titlePane',
+            print       : {
+                include : true,
+                id      : 'print',
+                type    : 'titlePane',
                 canFloat: true,
-                path: 'cmv/dijit/Print',
-                title: 'Print',
-                open: false,
+                path    : 'cmv/dijit/Print',
+                title   : 'Print',
+                open    : false,
                 position: 6,
-                options: {
-                    map: true,
-                    printTaskURL: 'https://utility.arcgisonline.com/arccmv/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
+                options : {
+                    map          : true,
+                    printTaskURL : 'https://utility.arcgisonline.com/arccmv/rest/services/Utilities/PrintingTools/GPServer/Export%20Web%20Map%20Task',
                     copyrightText: 'Copyright 2014',
-                    authorText: 'Me',
-                    defaultTitle: 'Viewer Map',
+                    authorText   : 'Me',
+                    defaultTitle : 'Viewer Map',
                     defaultFormat: 'PDF',
                     defaultLayout: 'Letter ANSI A Landscape'
                 }
             },
-            directions: {
-                include: true,
-                id: 'directions',
-                type: 'titlePane',
-                path: 'cmv/dijit/Directions',
-                title: 'Directions',
-                open: false,
+            directions  : {
+                include : true,
+                id      : 'directions',
+                type    : 'titlePane',
+                path    : 'cmv/dijit/Directions',
+                title   : 'Directions',
+                open    : false,
                 position: 7,
-                options: {
-                    map: true,
+                options : {
+                    map              : true,
                     mapRightClickMenu: true,
-                    options: {
+                    options          : {
                         routeTaskUrl: 'http://sampleserver3.arcgisonline.com/ArcGIS/rest/services/Network/USA/NAServer/Route',
-                        routeParams: {
-                            directionsLanguage: 'en-US',
+                        routeParams : {
+                            directionsLanguage   : 'en-US',
                             directionsLengthUnits: units.MILES
                         },
-                        active: false //for 3.12, starts active by default, which we dont want as it interfears with mapClickMode
+                        active      : false //for 3.12, starts active by default, which we dont want as it interfears with mapClickMode
                     }
                 }
             },
-            editor: {
-                include: true,
-                id: 'editor',
-                type: 'titlePane',
-                path: 'cmv/dijit/Editor',
-                title: 'Editor',
-                open: false,
+            editor      : {
+                include : true,
+                id      : 'editor',
+                type    : 'titlePane',
+                path    : 'cmv/dijit/Editor',
+                title   : 'Editor',
+                open    : false,
                 position: 8,
-                options: {
-                    map: true,
-                    mapClickMode: true,
+                options : {
+                    map             : true,
+                    mapClickMode    : true,
                     editorLayerInfos: true,
-                    settings: {
-                        toolbarVisible: true,
+                    settings        : {
+                        toolbarVisible       : true,
                         showAttributesOnClick: true,
-                        enableUndoRedo: true,
-                        createOptions: {
+                        enableUndoRedo       : true,
+                        createOptions        : {
                             polygonDrawTools: ['freehandpolygon', 'autocomplete']
                         },
-                        toolbarOptions: {
+                        toolbarOptions       : {
                             reshapeVisible: true,
-                            cutVisible: true,
-                            mergeVisible: true
+                            cutVisible    : true,
+                            mergeVisible  : true
                         }
                     }
                 }
             },
-            streetview: {
-                include: true,
-                id: 'streetview',
-                type: 'titlePane',
+            streetview  : {
+                include : true,
+                id      : 'streetview',
+                type    : 'titlePane',
                 canFloat: true,
                 position: 9,
-                path: 'cmv/dijit/StreetView',
-                title: 'Google Street View',
-                options: {
-                    map: true,
-                    mapClickMode: true,
+                path    : 'cmv/dijit/StreetView',
+                title   : 'Google Street View',
+                options : {
+                    map              : true,
+                    mapClickMode     : true,
                     mapRightClickMenu: true
                 }
             },
-            help: {
+            help        : {
                 include: true,
-                id: 'help',
-                type: 'floating',
-                path: 'cmv/dijit/Help',
-                title: 'Help',
+                id     : 'help',
+                type   : 'floating',
+                path   : 'cmv/dijit/Help',
+                title  : 'Help',
                 options: {}
             }
 
         }
     };
-});
+}
+);
