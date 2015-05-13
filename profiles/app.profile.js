@@ -30,10 +30,10 @@ var profile = {
     // Uses Closure Compiler as the JavaScript minifier. This can also be set to "shrinksafe" to use ShrinkSafe,
     // though ShrinkSafe is deprecated and not recommended.
     // This option defaults to "" (no compression) if not provided.
-    optimize: 'closure',
+    optimize: 'uglify',
     // We're building layers, so we need to set the minifier to use for those, too.
     // This defaults to "shrinksafe" if not provided.
-    layerOptimize: 'closure',
+    layerOptimize: 'uglify',
     // A list of packages that will be built. The same packages defined in the loader should be defined here in the
     // build profile.
     packages: [
@@ -54,7 +54,7 @@ var profile = {
     // The default selector engine is not included by default in a dojo.js build in order to make mobile builds
     // smaller. We add it back here to avoid that extra HTTP request. There is also an "acme" selector available; if
     // you use that, you will need to set the `selectorEngine` property in index.html, too.
-    selectorEngine: 'lite',
+    selectorEngine: 'acme',
     // Any module in an application can be converted into a "layer" module, which consists of the original module +
     // additional dependencies built into the same file. Using layers allows applications to reduce the number of HTTP
     // requests by combining all JavaScript into a single file.
@@ -66,34 +66,7 @@ var profile = {
             include: [
                 'dojo/dojo',
                 'cmv/config/viewer',
-                'cmv/core/Controller',
-                'cmv/dijit/_FloatingWidgetMixin',
-                'cmv/dijit/Basemaps',
-                'cmv/dijit/Bookmarks',
-                'cmv/dijit/Directions',
-                'cmv/dijit/Draw',
-                'cmv/dijit/Editor',
-                'cmv/dijit/Find',
-                'cmv/dijit/FloatingTitlePane',
-                'cmv/dijit/FloatingWidgetDialog',
-                'cmv/dijit/Geocoder',
-                'cmv/dijit/Growler',
-                'cmv/dijit/Help',
-                'cmv/dijit/Identify',
-                'cmv/dijit/LayerControl',
-                'cmv/dijit/LayerControl/controls/_Control',
-                'cmv/dijit/LayerControl/controls/Dynamic',
-                'cmv/dijit/LayerControl/controls/Feature',
-                'cmv/dijit/LayerControl/controls/_DynamicSublayer',
-                'cmv/dijit/LayerControl/controls/_DynamicFolder',
-                'cmv/dijit/LayerControl/plugins/LayerMenu',
-                'cmv/dijit/LayerControl/plugins/legendUtil',
-                'cmv/dijit/LocateButton',
-                'cmv/dijit/MapInfo',
-                'cmv/dijit/Measurement',
-                'cmv/dijit/Print',
-                'cmv/dijit/StreetView',
-                'cmv/dijit/Vim'
+                'cmv/core/Controller'
             ],
             customBase: true,
             boot: true
@@ -121,5 +94,8 @@ var profile = {
     },
     plugins: {
         'xstyle/css': 'xstyle/build/amd-css'
-    }
+    }/*,
+    userConfig: {
+        packages: ['cmv', 'dijit', 'dojox', 'esri', 'dgrid', 'xstyle', 'put-selector']
+    }*/
 };
