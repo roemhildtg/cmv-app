@@ -24,7 +24,7 @@ define([
                 map: this.map
             }, this.options), this.directionsNode);
             this.directions.startup();
-            
+
             if (this.mapRightClickMenu) {
                 this.addRightClickMenu();
             }
