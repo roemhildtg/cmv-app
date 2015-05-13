@@ -9,12 +9,12 @@
 	<title>Configurable Map Viewer</title>
 	<!--this could be interned as well but then the user will be without styles until the 
 	  entire app loads -->
-	<link rel="stylesheet" type="text/css" href="css/main.css" />
+	<link rel="stylesheet" type="text/css" href="cmv/css/main.css" />
     </head>
     <body class="dbootstrap">
 	<div class="appHeader">
 	    <div class="headerLogo">
-		<img alt="logo" src="images/rocket-logo.png" height="54" />
+		<img alt="logo" src="cmv/images/rocket-logo.png" height="54" />
 	    </div>
 	    <div class="headerTitle">
 		<span id="headerTitleSpan">
@@ -48,7 +48,7 @@
 			// Define the base URL for all of our modules and packages
 			baseUrl: '.',
 			//this can be changed to force a reload of all files for end user's browser
-			cacheBust: '1.0.0',
+			cacheBust: '1.0.5',
 			packages: [
 				'cmv',
 				'dgrid',
@@ -61,7 +61,7 @@
 				'proj4js'
 			],
 			// Use the smaller, faster "lite" CSS selector engine, which works in all browsers IE8+
-			selectorEngine: 'lite',
+			selectorEngine: 'acme',
 			// Fix the loader to use normal AMD resolution of unregistered module paths (relative to `baseUrl`)
 			// instead of the legacy Dojo resolution method (relative to the parent directory of `baseUrl`)
 			tlmSiblingOfDojo: false
