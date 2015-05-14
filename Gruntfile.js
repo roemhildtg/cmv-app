@@ -29,6 +29,8 @@ module.exports = function(grunt) {
     };
 
     var dojoReleaseName = grunt.option('releaseName') || 'viewer';
+    var currentVersion = grunt.file.readJSON('package.json' ).version;
+    var buildDir = currentVersion + '/' + dojoReleaseName;
 
   // grunt task config
   grunt.initConfig({
@@ -49,7 +51,7 @@ module.exports = function(grunt) {
           dojo: {
               cwd: 'src',
               src: ['index.html'],
-              dest: 'dist/dojo/' + dojoReleaseName,
+              dest: 'dist/dojo/' + buildDir,
               expand: true
           }
       },
@@ -58,7 +60,10 @@ module.exports = function(grunt) {
               src: ['dist/grunt/viewer']
           },
           dojo: {
-              src: ['dist/dojo/' + dojoReleaseName]
+              src: ['dist/dojo/' + buildDir]
+          },
+          dojoAll: {
+              src: ['dist/dojo/']
           }
       },
       autoprefixer: {
@@ -136,7 +141,7 @@ module.exports = function(grunt) {
           dojo: {
               options: {
                   port: 3001,
-                  base: 'dist/dojo/' + dojoReleaseName,
+                  base: 'dist/dojo/' + buildDir,
                   hostname: '*',
                   middleware: middleware
               }
@@ -166,11 +171,11 @@ module.exports = function(grunt) {
           },
           dojo: {
               options: {
-                  archive: 'dist/dojo/' + dojoReleaseName + '/' + dojoReleaseName + '.zip'
+                  archive: 'dist/dojo/' + buildDir + '.zip'
               },
               files: [{
                   expand: true,
-                  cwd: 'dist/dojo/' + dojoReleaseName,
+                  cwd: 'dist/dojo/' + buildDir,
                   src: ['**', '!**/build-report.txt']
               }]
           }
@@ -193,7 +198,7 @@ module.exports = function(grunt) {
               }
           },
           options: {
-              releaseDir: '../dist/dojo/' + dojoReleaseName,
+              releaseDir: '../dist/dojo/' + buildDir,
               dojo: 'src/dojo/dojo.js',
               load: 'build'
           }
@@ -204,7 +209,7 @@ module.exports = function(grunt) {
                   cwd: 'src',
                   expand: true,
                   src: ['index.html'],
-                  dest: 'dist/dojo/' + dojoReleaseName
+                  dest: 'dist/dojo/' + buildDir
               }],
               options: {
                   collapseWhitespace: true,
