@@ -24,7 +24,6 @@ define([
         canFloat: false,
         isFloating: false,
         isDragging: false,
-        dragDelay: 3,
 
         resizable: false,
         resizeOptions: {},
@@ -100,12 +99,7 @@ define([
         },
 
         /* Methods for Dragging */
-        _dragging: function (mover) {
-            // add our own delay since the movable delay
-            // property breaks in all versions of Internet Explorer
-            if (Math.abs(mover.marginBox.l - this._moverBox.l) <= this.dragDelay || Math.abs(mover.marginBox.t - this._moverBox.t) <= this.dragDelay) {
-                return;
-            }
+        _dragging: function () {
             this.isDragging = true;
             if (!this.titleCursor) {
                 this.titleCursor = domStyle.get(this.titleBarNode, 'cursor');
@@ -134,7 +128,7 @@ define([
             }
         },
         _startDrag: function (mover) {
-            this._moverBox = mover.marginBox;
+            this._moverBox = lang.clone(mover.marginBox);
         },
         _endDrag: function () {
             // summary:
