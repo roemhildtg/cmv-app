@@ -48,9 +48,8 @@ define([
                 aspect.after(this._moveable, 'onMoveStop', lang.hitch(this, '_endDrag'), true);
                 aspect.after(this._moveable, 'onMoveStart', lang.hitch(this, '_startDrag'), true);
 
-                // ensure that dragging the movable stops no matter
-                // when/where the mouse is released or a touch is completed
-                on(document, 'mouseup, touchend', lang.hitch(this, '_endDrag'));
+                on(document, 'mouseup, touchend', lang.hitch(this, '_resetTitleBar'));
+                on(this.titleBarNode, 'mouseout', lang.hitch(this, '_resetTitleBar'));
             }
             this.inherited(arguments);
         },
@@ -140,12 +139,7 @@ define([
             nodePosition.x = Math.min(Math.max(nodePosition.x, 0), (viewport.w - nodePosition.w));
             this._relativePosition = nodePosition;
             this._position();
-            domStyle.set(this.titleBarNode, 'cursor', this.titleCursor);
-
-            //delayed slightly so the titlebar does not toggle
-            window.setTimeout(lang.hitch(this, function () {
-                this.isDragging = false;
-            }), 50);
+            this._resetTitleBar();
         },
         _position: function () {
             // summary:
@@ -165,6 +159,15 @@ define([
                     top: t + 'px'
                 });
             }
+        },
+        _resetTitleBar: function () {
+            domStyle.set(this.titleBarNode, 'cursor', this.titleCursor);
+            this._moverBox = null;
+
+            //delayed slightly so the titlebar does not toggle
+            window.setTimeout(lang.hitch(this, function () {
+                this.isDragging = false;
+            }), 50);
         },
 
         /* Methods for Docking and Undocking */
