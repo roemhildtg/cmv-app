@@ -70,7 +70,11 @@ There are many ways to contribute to CMV:
 
 7. __Propose a Feature__ - If there is a feature you would like to request, add it to the [issues list](https://github.com/cmv/cmv-app/issues) for consideration.
 
-8. __Submit an Issue__ - If you find a possible bug, please submit an issue in the [issues log](https://github.com/cmv/cmv-app/issues?state=open).
+8. __Submit an Issue__ - If you find a possible bug, please submit an issue in the [issues log](https://github.com/cmv/cmv-app/issues?state=open). If possible, try to reproduce the issue in a JSBin. This will enable a faster response from developers by allowing us to reproduce the issue. See starter JSBin below.
+
+## [Starter JSBin - jsbin.com/kuxabehiva](http://jsbin.com/kuxabehiva/edit?js,output)
+
+You can get a quick feel for how configuring CMV works by using this JSBin link. The JSBin is set up to use the main config file `js/config/viewer` as a variable so users can quickly change config settings and see the result in real time. This can also be used to help diagnose and reproduce potential bugs with CMV.
 
 ## License
 
